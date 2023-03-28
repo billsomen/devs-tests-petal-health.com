@@ -1,0 +1,346 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Pokemons API V1",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/v1/pokemons": {
+      "get": {
+        "summary": "Retrieves all Pokemons",
+        "tags": [
+          "Pokemons"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "type": "integer",
+            "description": "Page number"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "integer",
+            "description": "Number of Pokemons per page"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "pokemon": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/pokemon"
+                  }
+                },
+                "page": {
+                  "type": "integer"
+                },
+                "page_count": {
+                  "type": "integer"
+                },
+                "total_count": {
+                  "type": "integer"
+                },
+                "last_page": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "next_page": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "prev_page": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "pokemons",
+                "page",
+                "total_count",
+                "last_page",
+                "next_page",
+                "prev_page"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/pokemons/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "type": "integer",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Retrieves a specific pokemon",
+        "tags": [
+          "Pokemons"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "pokemon found",
+            "schema": {
+              "$ref": "#/components/schemas/pokemon"
+            }
+          },
+          "404": {
+            "description": "pokemon not found",
+            "schema": {
+              "$ref": "#/components/response/error"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Deletes a Pokemon",
+        "tags": [
+          "Pokemons"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "default": "eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYWRtaW4iLCJ1c2VyX3JvbGUiOiJST0xFX0FETUlOIiwidXNlcl9pZCI6ImIwNmM1ZjdlLWNjYjctMTFlZC1hZmExLTAyNDJhYzEyMDAwMiIsInJvbGVfaWQiOiIzYzI5YmMyMi01YzcyLTExYTYtZjc3OC0yYmM4ZjQ4Y2VhMGUiLCJwYXNzd29yZF9kaWdlc3QiOiI4NGE5NGIzNTMzNTM3YmJlZjJmYWMwNzg0ZDdjYjM2ZSIsImV4cCI6MTY4MjUzMzcyN30.qPqo7_IiUcDKHR_nD4Pu1K6RTSrnz6Y9qrN5Imr2b4w"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/components/response/error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "pokemon": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "number": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "first_type": {
+            "type": "string"
+          },
+          "second_type": {
+            "type": "string"
+          },
+          "total": {
+            "type": "integer"
+          },
+          "hp": {
+            "type": "integer"
+          },
+          "attack": {
+            "type": "integer"
+          },
+          "defense": {
+            "type": "integer"
+          },
+          "sp_attack": {
+            "type": "integer"
+          },
+          "sp_defense": {
+            "type": "integer"
+          },
+          "speed": {
+            "type": "integer"
+          },
+          "generation": {
+            "type": "integer"
+          },
+          "legendary": {
+            "type": "boolean"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "number",
+          "name",
+          "first_type",
+          "total",
+          "hp",
+          "attack",
+          "defense",
+          "sp_attack",
+          "sp_defense",
+          "speed",
+          "generation",
+          "legendary"
+        ]
+      }
+    },
+    "response": {
+      "message": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ]
+      },
+      "error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "error"
+        ]
+      }
+    },
+    "example": {
+      "post_pokemon": {
+        "type": "object",
+        "properties": {
+          "number": {
+            "type": "integer",
+            "default": 25
+          },
+          "name": {
+            "type": "string",
+            "default": "Pikachu"
+          },
+          "first_type": {
+            "type": "string",
+            "default": "Ellectric"
+          },
+          "second_type": {
+            "type": "string",
+            "default": "Volta"
+          },
+          "total": {
+            "type": "integer",
+            "default": 320
+          },
+          "hp": {
+            "type": "integer",
+            "default": 35
+          },
+          "attack": {
+            "type": "integer",
+            "default": 55
+          },
+          "defense": {
+            "type": "integer",
+            "default": 40
+          },
+          "sp_attack": {
+            "type": "integer",
+            "default": 50
+          },
+          "sp_defense": {
+            "type": "integer",
+            "default": 50
+          },
+          "speed": {
+            "type": "integer",
+            "default": 90
+          },
+          "generation": {
+            "type": "integer",
+            "default": 1
+          },
+          "legendary": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        "required": [
+          "number",
+          "name",
+          "first_type",
+          "total",
+          "hp",
+          "attack",
+          "defense",
+          "sp_attack",
+          "sp_defense",
+          "speed",
+          "generation",
+          "legendary"
+        ]
+      }
+    },
+    "securityDefinitions": {
+      "Bearer": {
+        "description": "Bearer Token",
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header"
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "http://{defaultHost}",
+      "variables": {
+        "defaultHost": {
+          "default": "127.0.0.1:3000"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,279 @@
+---
+openapi: 3.0.1
+info:
+  title: Pokemons API V1
+  version: v1
+paths:
+  "/api/v1/pokemons":
+    get:
+      summary: Retrieves all Pokemons
+      tags:
+      - Pokemons
+      parameters:
+      - name: page
+        in: query
+        description: Page number
+        schema:
+          type: integer
+      - name: limit
+        in: query
+        description: Number of Pokemons per page
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pokemon:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/pokemon"
+                  page:
+                    type: integer
+                  page_count:
+                    type: integer
+                  total_count:
+                    type: integer
+                  last_page:
+                    type:
+                    - string
+                    - 'null'
+                  next_page:
+                    type:
+                    - string
+                    - 'null'
+                  prev_page:
+                    type:
+                    - string
+                    - 'null'
+                required:
+                - pokemons
+                - page
+                - total_count
+                - last_page
+                - next_page
+                - prev_page
+    post:
+      summary: Creates a new Pokemon
+      tags:
+      - Pokemons
+      security:
+      - bearerAuth: []
+      parameters: []
+      responses:
+        '201':
+          description: Created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/example/post_pokemon"
+  "/api/v1/pokemons/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: Retrieves a specific pokemon
+      tags:
+      - Pokemons
+      responses:
+        '200':
+          description: pokemon found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/pokemon"
+        '404':
+          description: pokemon not found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/response/error"
+    delete:
+      summary: Deletes a Pokemon
+      tags:
+      - Pokemons
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+    put:
+      summary: Updates a specific Pokemon
+      tags:
+      - Pokemons
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/response/message"
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/response/error"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/example/post_pokemon"
+components:
+  schemas:
+    pokemon:
+      type: object
+      properties:
+        id:
+          type: integer
+        number:
+          type: integer
+        name:
+          type: string
+        first_type:
+          type: string
+        second_type:
+          type: string
+        total:
+          type: integer
+        hp:
+          type: integer
+        attack:
+          type: integer
+        defense:
+          type: integer
+        sp_attack:
+          type: integer
+        sp_defense:
+          type: integer
+        speed:
+          type: integer
+        generation:
+          type: integer
+        legendary:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      required:
+      - number
+      - name
+      - first_type
+      - total
+      - hp
+      - attack
+      - defense
+      - sp_attack
+      - sp_defense
+      - speed
+      - generation
+      - legendary
+  response:
+    message:
+      type: object
+      properties:
+        message:
+          type: string
+      required:
+      - message
+    error:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+      - error
+  example:
+    post_pokemon:
+      type: object
+      properties:
+        number:
+          type: integer
+          default: 25
+        name:
+          type: string
+          default: Pikachu
+        first_type:
+          type: string
+          default: Ellectric
+        second_type:
+          type: string
+          default: Volta
+        total:
+          type: integer
+          default: 320
+        hp:
+          type: integer
+          default: 35
+        attack:
+          type: integer
+          default: 55
+        defense:
+          type: integer
+          default: 40
+        sp_attack:
+          type: integer
+          default: 50
+        sp_defense:
+          type: integer
+          default: 50
+        speed:
+          type: integer
+          default: 90
+        generation:
+          type: integer
+          default: 1
+        legendary:
+          type: boolean
+          default: false
+      required:
+      - number
+      - name
+      - first_type
+      - total
+      - hp
+      - attack
+      - defense
+      - sp_attack
+      - sp_defense
+      - speed
+      - generation
+      - legendary
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      value: eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYWRtaW4iLCJ1c2VyX3JvbGUiOiJST0xFX0FETUlOIiwidXNlcl9pZCI6ImIwNmM1ZjdlLWNjYjctMTFlZC1hZmExLTAyNDJhYzEyMDAwMiIsInJvbGVfaWQiOiIzYzI5YmMyMi01YzcyLTExYTYtZjc3OC0yYmM4ZjQ4Y2VhMGUiLCJwYXNzd29yZF9kaWdlc3QiOiI4NGE5NGIzNTMzNTM3YmJlZjJmYWMwNzg0ZDdjYjM2ZSIsImV4cCI6MTY4MjUzMzcyN30.qPqo7_IiUcDKHR_nD4Pu1K6RTSrnz6Y9qrN5Imr2b4w
+servers:
+- url: http://{defaultHost}
+  variables:
+    defaultHost:
+      default: 127.0.0.1:3000

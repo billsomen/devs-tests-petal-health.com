@@ -1,0 +1,300 @@
+{
+	"info": {
+		"_postman_id": "662b9fda-9df4-45cc-83e3-54580ef32cfc",
+		"name": "Pokedex-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20857247"
+	},
+	"item": [
+		{
+			"name": "Pokemons",
+			"item": [
+				{
+					"name": "Create Pokemon",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYWRtaW4iLCJ1c2VyX3JvbGUiOiJST0xFX0FETUlOIiwidXNlcl9pZCI6ImIwNmM1ZjdlLWNjYjctMTFlZC1hZmExLTAyNDJhYzEyMDAwMiIsInJvbGVfaWQiOiIzYzI5YmMyMi01YzcyLTExYTYtZjc3OC0yYmM4ZjQ4Y2VhMGUiLCJwYXNzd29yZF9kaWdlc3QiOiI4NGE5NGIzNTMzNTM3YmJlZjJmYWMwNzg0ZDdjYjM2ZSIsImV4cCI6MTY4MjUzMzcyN30.qPqo7_IiUcDKHR_nD4Pu1K6RTSrnz6Y9qrN5Imr2b4w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"number\": 2,\n    \"name\": \"Ivysaur\",\n    \"first_type\": \"Grass\",\n    \"second_type\": \"Poison\",\n    \"total\": 405,\n    \"hp\": 60,\n    \"attack\": 62,\n    \"defense\": 63,\n    \"sp_attack\": 80,\n    \"sp_defense\": 80,\n    \"speed\": 60,\n    \"generation\": 1,\n    \"legendary\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/v1/pokemons/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"pokemons",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Pokemons",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYWRtaW4iLCJ1c2VyX3JvbGUiOiJST0xFX0FETUlOIiwidXNlcl9pZCI6ImIwNmM1ZjdlLWNjYjctMTFlZC1hZmExLTAyNDJhYzEyMDAwMiIsInJvbGVfaWQiOiIzYzI5YmMyMi01YzcyLTExYTYtZjc3OC0yYmM4ZjQ4Y2VhMGUiLCJwYXNzd29yZF9kaWdlc3QiOiI4NGE5NGIzNTMzNTM3YmJlZjJmYWMwNzg0ZDdjYjM2ZSIsImV4cCI6MTY4MjUzMzcyN30.qPqo7_IiUcDKHR_nD4Pu1K6RTSrnz6Y9qrN5Imr2b4w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/v1/pokemons?page=1&limit=25",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"pokemons"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "25"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get A Pokemon",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/v1/pokemons/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"pokemons",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update A Pokemon",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYWRtaW4iLCJ1c2VyX3JvbGUiOiJST0xFX0FETUlOIiwidXNlcl9pZCI6ImIwNmM1ZjdlLWNjYjctMTFlZC1hZmExLTAyNDJhYzEyMDAwMiIsInJvbGVfaWQiOiIzYzI5YmMyMi01YzcyLTExYTYtZjc3OC0yYmM4ZjQ4Y2VhMGUiLCJwYXNzd29yZF9kaWdlc3QiOiI4NGE5NGIzNTMzNTM3YmJlZjJmYWMwNzg0ZDdjYjM2ZSIsImV4cCI6MTY4MjUzMzcyN30.qPqo7_IiUcDKHR_nD4Pu1K6RTSrnz6Y9qrN5Imr2b4w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"number\": 1,\n    \"name\": \"Telephone\",\n    \"first_type\": \"Call\",\n    \"second_type\": \"Bip\",\n    \"total\": 318,\n    \"hp\": 45,\n    \"attack\": 49,\n    \"defense\": 49,\n    \"sp_attack\": 65,\n    \"sp_defense\": 65,\n    \"speed\": 45,\n    \"generation\": 1,\n    \"legendary\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/v1/pokemons/800",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"pokemons",
+								"800"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete A Pokemon",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYWRtaW4iLCJ1c2VyX3JvbGUiOiJST0xFX0FETUlOIiwidXNlcl9pZCI6ImIwNmM1ZjdlLWNjYjctMTFlZC1hZmExLTAyNDJhYzEyMDAwMiIsInJvbGVfaWQiOiIzYzI5YmMyMi01YzcyLTExYTYtZjc3OC0yYmM4ZjQ4Y2VhMGUiLCJwYXNzd29yZF9kaWdlc3QiOiI4NGE5NGIzNTMzNTM3YmJlZjJmYWMwNzg0ZDdjYjM2ZSIsImV4cCI6MTY4MjUzMzcyN30.qPqo7_IiUcDKHR_nD4Pu1K6RTSrnz6Y9qrN5Imr2b4w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/v1/pokemons/304",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"pokemons",
+								"304"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "GET /users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/v1/users",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST /users",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"yvanov\",\n    \"user_role\": \"ROLE_ADMIN\",\n    \"user_id\": \"b06c5f7e-ccb7-11ed-afa1-0242ac120002\",\n    \"role_id\": \"3c29bc22-5c72-11a6-f778-2bc8f48cea0e\",\n    \"password_digest\": \"84a94b3533537bbef2fac0784d7cb36e\",\n    \"created_at\": \"2023-03-27T18:57:30.218Z\",\n    \"updated_at\": \"2023-03-27T18:57:30.218Z\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/v1/users",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET /users/id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/v1/users/2",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "id",
+			"value": "801"
+		}
+	]
+}
